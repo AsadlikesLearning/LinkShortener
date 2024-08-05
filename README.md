@@ -14,3 +14,13 @@ This is a simple URL shortener application built using Flask. The application al
 - SQLAlchemy
 - SQLite
 - HTML/CSS
+
+
+DIRECTORY STRUCTURE 
+
+url-shortener/
+├── main.py
+├── templates/
+│   ├── base.html
+│   ├── home.html
+│   └── shorturl.html
