@@ -1,5 +1,5 @@
 name: InstallLinkShortener
-description: Installs Flask-based URL Shortener app
+description: Installs Flask-based URL Shortener on Ubuntu
 schemaVersion: 1.0
 phases:
   - name: build
@@ -8,8 +8,8 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
-            - yum update -y
-            - yum install -y python3 python3-pip
+            - apt-get update -y
+            - apt-get install -y python3 python3-pip python3-venv
             - pip3 install flask sqlalchemy gunicorn
       - name: CopyApp
         action: ExecuteBash
@@ -21,6 +21,6 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
-            - echo "[Unit]\nDescription=LinkShortener Flask App\nAfter=network.target\n\n[Service]\nExecStart=/usr/local/bin/gunicorn --workers 3 --bind 0.0.0.0:80 -m 007 main:app\nWorkingDirectory=/opt/linkshortener\nRestart=always\nUser=ec2-user\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/linkshortener.service
+            - echo "[Unit]\nDescription=LinkShortener Flask App\nAfter=network.target\n\n[Service]\nExecStart=/usr/bin/gunicorn --workers 3 --bind 0.0.0.0:80 -m 007 main:app\nWorkingDirectory=/opt/linkshortener\nRestart=always\nUser=ubuntu\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/linkshortener.service
             - systemctl enable linkshortener.service
             - systemctl start linkshortener.service
